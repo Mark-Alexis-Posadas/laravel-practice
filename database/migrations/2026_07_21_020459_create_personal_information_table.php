@@ -13,6 +13,21 @@ return new class extends Migration
     {
         Schema::create('personal_information', function (Blueprint $table) {
             $table->id();
+
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+
+            $table->date('birthday');
+
+            $table->string('gender');
+
+            $table->string('email')->unique();
+
+            $table->string('phone');
+
+            $table->text('address');
+
             $table->timestamps();
         });
     }
