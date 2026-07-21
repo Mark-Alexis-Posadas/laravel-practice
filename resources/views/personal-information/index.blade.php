@@ -2,83 +2,38 @@
 
 @section('content')
 
+@if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>Personal Information</h2>
 
-    <a href="{{ route('personal-information.create') }}" class="btn btn-primary">
-        Add New
-    </a>
+    <button
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#createPersonModal">
+        <i class="bi bi-person-plus-fill"></i>
+        Add Person
+    </button>
 </div>
 
-<table class="table table-bordered table-striped">
-
-    <thead class="table-dark">
+{{-- Dynamic Table Component --}}
+<x-table :headers="['ID', 'First Name', 'Middle Name', 'Last Name', 'Birthday', 'Gender', 'Email', 'Phone', 'Address', 'Action']">
+    @forelse($personalInformations as $person)
+        <x-person-row :person="$person" />
+    @empty
         <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Middle Name</th>
-            <th>Last Name</th>
-            <th>Birthday</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th width="180">Action</th>
+            <td colspan="10" class="text-center py-4 text-muted">
+                No records found.
+            </td>
         </tr>
-    </thead>
+    @endforelse
+</x-table>
 
-   <tbody>
-
-@forelse($personalInformations as $person)
-
-<tr>
-
-    <td>{{ $person->id }}</td>
-
-    <td>{{ $person->first_name }}</td>
-
-    <td>{{ $person->middle_name }}</td>
-
-    <td>{{ $person->last_name }}</td>
-
-    <td>{{ $person->birthday }}</td>
-
-    <td>{{ $person->gender }}</td>
-
-    <td>{{ $person->email }}</td>
-
-    <td>{{ $person->phone }}</td>
-
-    <td>{{ $person->address }}</td>
-
-    <td>
-
-        <a href="#" class="btn btn-warning btn-sm">
-            Edit
-        </a>
-
-        <button class="btn btn-danger btn-sm">
-            Delete
-        </button>
-
-    </td>
-
-</tr>
-
-@empty
-
-<tr>
-
-    <td colspan="10" class="text-center">
-        No records found.
-    </td>
-
-</tr>
-
-@endforelse
-
-</tbody>
-
-</table>
-
+{{-- Pagination Component --}}
+<x-pagination :paginator="$personalInformations" />
+@include('personal-information.partials.create')
 @endsection
