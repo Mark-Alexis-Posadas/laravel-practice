@@ -12,15 +12,13 @@ class PersonalInformationController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $personalInformations = PersonalInformation::latest()->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Personal information retrieved successfully.',
+            'data' => $personalInformations,
+        ], 200);
     }
 
     /**
@@ -28,7 +26,24 @@ class PersonalInformationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'required|string|max:50',
+            'email' => 'required|email|unique:personal_information,email',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+        ]);
+
+        $personalInformation = PersonalInformation::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Personal information created successfully.',
+            'data' => $personalInformation,
+        ], 201);
     }
 
     /**
@@ -36,15 +51,11 @@ class PersonalInformationController extends Controller
      */
     public function show(PersonalInformation $personalInformation)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(PersonalInformation $personalInformation)
-    {
-        //
+        return response()->json([
+            'success' => true,
+            'message' => 'Personal information retrieved successfully.',
+            'data' => $personalInformation,
+        ], 200);
     }
 
     /**
@@ -52,7 +63,24 @@ class PersonalInformationController extends Controller
      */
     public function update(Request $request, PersonalInformation $personalInformation)
     {
-        //
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'required|string|max:50',
+            'email' => 'required|email|unique:personal_information,email,' . $personalInformation->id,
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+        ]);
+
+        $personalInformation->update($validated);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Personal information updated successfully.',
+            'data' => $personalInformation,
+        ], 200);
     }
 
     /**
@@ -60,6 +88,11 @@ class PersonalInformationController extends Controller
      */
     public function destroy(PersonalInformation $personalInformation)
     {
-        //
+        $personalInformation->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Personal information deleted successfully.',
+        ], 200);
     }
 }
