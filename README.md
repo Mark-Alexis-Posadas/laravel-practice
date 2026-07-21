@@ -1,58 +1,375 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 Git Flow Guide
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A simple Git workflow for individual developers and teams.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Branch Structure
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+There are two main branches:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+main
+│
+develop
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## `main`
 
-## Contributing
+- Production-ready code
+- Always stable
+- Do not commit directly unless necessary
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## `develop`
 
-## Code of Conduct
+- Integration branch
+- All completed features are merged here before going to `main`
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+# Feature Branches
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Create a separate branch for every task or feature.
 
-## License
+Examples:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```text
+feature/add-person-modal
+feature/delete-person
+feature/pagination
+feature/search-person
+feature/sort-by-id
+```
+
+Workflow:
+
+```text
+develop
+│
+├── feature/add-person-modal
+├── feature/delete-person
+├── feature/search-person
+└── feature/pagination
+```
+
+---
+
+# Step 1 - Clone the Repository
+
+```bash
+git clone https://github.com/your-company/project.git
+```
+
+---
+
+# Step 2 - Switch to the Develop Branch
+
+```bash
+git checkout develop
+```
+
+---
+
+# Step 3 - Pull the Latest Changes
+
+Always synchronize your local branch before starting new work.
+
+```bash
+git pull origin develop
+```
+
+---
+
+# Step 4 - Create a Feature Branch
+
+```bash
+git checkout -b feature/add-person-modal
+```
+
+Now you're working on your own branch.
+
+---
+
+# Step 5 - Start Coding
+
+Example tasks:
+
+- Create modal
+- Add validation
+- Connect API
+- Test functionality
+
+---
+
+# Step 6 - Check Modified Files
+
+```bash
+git status
+```
+
+---
+
+# Step 7 - Stage Changes
+
+Stage all files:
+
+```bash
+git add .
+```
+
+Or stage specific files:
+
+```bash
+git add resources/views/person/index.blade.php
+```
+
+---
+
+# Step 8 - Commit Your Changes
+
+Use meaningful commit messages.
+
+```bash
+git commit -m "feat: add person modal"
+```
+
+Common commit prefixes:
+
+| Prefix   | Description                                |
+| -------- | ------------------------------------------ |
+| feat     | New feature                                |
+| fix      | Bug fix                                    |
+| refactor | Code improvement without changing behavior |
+| style    | Formatting or UI changes                   |
+| docs     | Documentation                              |
+| test     | Tests                                      |
+| chore    | Maintenance tasks                          |
+
+Examples:
+
+```bash
+git commit -m "feat: add search functionality"
+```
+
+```bash
+git commit -m "fix: sorting by ID descending"
+```
+
+```bash
+git commit -m "refactor: simplify pagination logic"
+```
+
+---
+
+# Step 9 - Push Your Branch
+
+```bash
+git push origin feature/add-person-modal
+```
+
+---
+
+# Step 10 - Create a Pull Request
+
+Create a Pull Request from:
+
+```text
+feature/add-person-modal
+        │
+        ▼
+develop
+```
+
+A teammate reviews the changes before merging.
+
+---
+
+# After Merge
+
+Switch back to the develop branch.
+
+```bash
+git checkout develop
+```
+
+Pull the latest changes.
+
+```bash
+git pull origin develop
+```
+
+Delete your local feature branch.
+
+```bash
+git branch -d feature/add-person-modal
+```
+
+---
+
+# Start a New Task
+
+Always start from an updated `develop` branch.
+
+```bash
+git checkout develop
+
+git pull origin develop
+
+git checkout -b feature/update-person
+```
+
+---
+
+# Example Project Structure
+
+```text
+main
+│
+develop
+│
+├── feature/add-person
+├── feature/edit-person
+├── feature/delete-person
+├── feature/view-person
+├── feature/pagination
+├── feature/search
+├── feature/sort
+└── feature/export
+```
+
+---
+
+# Bug Fix Branches
+
+For fixing bugs, use descriptive branch names.
+
+```text
+bugfix/modal-validation
+bugfix/api-error
+bugfix/pagination
+```
+
+Example commit:
+
+```bash
+git commit -m "fix: prevent duplicate person submission"
+```
+
+---
+
+# Release Process
+
+Once all features have been tested:
+
+```text
+develop
+    │
+    ▼
+main
+```
+
+Merge into production.
+
+```bash
+git checkout main
+
+git merge develop
+
+git push origin main
+```
+
+---
+
+# Daily Workflow
+
+```bash
+git checkout develop
+
+git pull origin develop
+
+git checkout -b feature/add-person
+
+# Write your code
+
+git add .
+
+git commit -m "feat: add person modal"
+
+git push origin feature/add-person
+```
+
+After your Pull Request has been merged:
+
+```bash
+git checkout develop
+
+git pull origin develop
+
+git branch -d feature/add-person
+```
+
+---
+
+# Best Practices
+
+- Never work directly on the `main` branch.
+- Pull the latest changes before creating a new feature branch.
+- Keep feature branches focused on a single task.
+- Write clear and descriptive commit messages.
+- Open a Pull Request for every completed feature.
+- Delete feature branches after they have been merged.
+- Keep commits small and meaningful.
+- Review code before merging.
+
+---
+
+# Recommended Branch Naming
+
+```text
+feature/login
+feature/user-profile
+feature/payment-gateway
+feature/export-report
+
+bugfix/login-error
+bugfix/api-timeout
+
+hotfix/security-patch
+
+release/v1.0.0
+release/v2.1.0
+```
+
+---
+
+# Conventional Commit Examples
+
+```text
+feat: add authentication
+fix: resolve login validation issue
+refactor: simplify user service
+style: improve dashboard layout
+docs: update installation guide
+test: add API unit tests
+chore: update dependencies
+```
+
+---
+
+# Summary
+
+```text
+1. Checkout develop
+2. Pull latest changes
+3. Create feature branch
+4. Develop the feature
+5. Stage changes
+6. Commit changes
+7. Push feature branch
+8. Open Pull Request
+9. Merge into develop
+10. Delete feature branch
+11. Repeat
+```
+
+Happy Coding! 🚀
