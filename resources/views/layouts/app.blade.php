@@ -11,10 +11,18 @@
 <body>
 
 <div class="container mt-5">
-
     @yield('content')
-
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+document.addEventListener('hidden.bs.modal', function (event) {
+    document.activeElement.blur();
+});
+</script>
+<script src="{{ asset('js/create.js') }}"></script>
+<script src="{{ asset('js/view.js') }}"></script>
+<script src="{{ asset('js/edit.js') }}"></script>
+<script src="{{ asset('js/delete.js') }}"></script>
 </body>
 </html>

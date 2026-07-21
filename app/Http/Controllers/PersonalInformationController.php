@@ -28,12 +28,82 @@ class PersonalInformationController extends Controller
         // BLADE VERSION
         // ===========================
 
-        $personalInformations = PersonalInformation::latest()->paginate(2);
+        $query = PersonalInformation::query();
+
+        if (request()->filled('search')) {
+
+            $search = request('search');
+
+            $query->where(function ($q) use ($search) {
+
+                $q->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('middle_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            });
+        }
+
+
+        if (request()->filled('gender')) {
+
+            $query->where('gender', request('gender'));
+        }
+
+
+        if (request()->filled('sort')) {
+
+            switch (request('sort')) {
+
+                case 'id_asc':
+                    $query->orderBy('id', 'asc');
+                    break;
+
+                case 'id_desc':
+                    $query->orderBy('id', 'desc');
+                    break;
+
+                case 'first_name_asc':
+                    $query->orderBy('first_name', 'asc');
+                    break;
+
+                case 'first_name_desc':
+                    $query->orderBy('first_name', 'desc');
+                    break;
+
+                case 'birthday_asc':
+                    $query->orderBy('birthday', 'asc');
+                    break;
+
+                case 'birthday_desc':
+                    $query->orderBy('birthday', 'desc');
+                    break;
+
+                default:
+                    $query->latest();
+                    break;
+            }
+        } else {
+
+            $query->latest();
+        }
+
+
+        $personalInformations = $query
+            ->paginate(10)
+            ->withQueryString();
 
         return view(
             'personal-information.index',
             compact('personalInformations')
         );
+
+        // $personalInformations = PersonalInformation::latest()->paginate(2);
+
+        // return view(
+        //     'personal-information.index',
+        //     compact('personalInformations')
+        // );
     }
 
     /**
@@ -103,7 +173,7 @@ class PersonalInformationController extends Controller
     /**
      * Update the specified resource.
      */
-   public function update(Request $request, PersonalInformation $personalInformation)
+    public function update(Request $request, PersonalInformation $personalInformation)
     {
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',

@@ -1,7 +1,6 @@
 <div class="modal fade"
     id="createPersonModal"
-    tabindex="-1"
-    aria-hidden="true">
+    tabindex="-1">
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
 

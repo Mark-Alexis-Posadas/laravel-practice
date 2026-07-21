@@ -4,7 +4,7 @@
 <div class="modal fade"
     id="viewPersonModal{{ $person->id }}"
     tabindex="-1"
-    aria-hidden="true">
+   >
 
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
