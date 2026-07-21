@@ -28,7 +28,7 @@ class PersonalInformationController extends Controller
         // BLADE VERSION
         // ===========================
 
-        $personalInformations = PersonalInformation::latest()->get();
+        $personalInformations = PersonalInformation::latest()->paginate(2);
 
         return view(
             'personal-information.index',
@@ -63,8 +63,22 @@ class PersonalInformationController extends Controller
         //     'message' => 'Personal information created successfully.',
         //     'data' => $personalInformation,
         // ], 201);
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'required|string|max:50',
+            'email' => 'required|email|unique:personal_information,email',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+        ]);
 
-        // Blade version mamaya natin gagawin.
+        PersonalInformation::create($validated);
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Person added successfully.');
     }
 
     /**
@@ -80,7 +94,10 @@ class PersonalInformationController extends Controller
         //     'data' => $personalInformation,
         // ]);
 
-        // Blade version mamaya.
+        return view(
+            'personal-information.show',
+            compact('personalInformation')
+        );
     }
 
     /**
@@ -111,6 +128,10 @@ class PersonalInformationController extends Controller
         //     'message' => 'Deleted successfully.',
         // ]);
 
-        // Blade version mamaya.
+        $personalInformation->delete();
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Record deleted successfully.');
     }
 }
