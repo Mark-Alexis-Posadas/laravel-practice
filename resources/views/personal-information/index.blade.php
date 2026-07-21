@@ -35,5 +35,8 @@
 
 {{-- Pagination Component --}}
 <x-pagination :paginator="$personalInformations" />
-@include('personal-information.partials.create')
+@include('components.modals.create-modal')
+@include('components.modals.edit-modal')
+@include('components.modals.view-modal')
+@include('components.modals.delete-modal')
 @endsection

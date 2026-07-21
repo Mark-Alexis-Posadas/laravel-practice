@@ -1,6 +1,7 @@
 @props(['person'])
 
-<tr>
+<tr id="person-{{ $person->id }}"
+    class="{{ session('updated_id') == $person->id ? 'table-success' : '' }}">
     <td>{{ $person->id }}</td>
     <td>{{ $person->first_name }}</td>
     <td>{{ $person->middle_name }}</td>
@@ -14,3 +15,5 @@
         <x-action-buttons :person="$person" />
     </td>
 </tr>
+
+@include('components.modals.edit-modal', ['person' => $person])

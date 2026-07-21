@@ -1,18 +1,30 @@
 @props(['person'])
 
 <div class="btn-group btn-group-sm" role="group">
-    <a href="{{ route('personal-information.show', $person) }}"
-        class="btn btn-secondary">
-        View
-    </a>
-    <a href="{{ route('personal-information.edit', $person) }}" class="btn btn-warning">
+<button
+    type="button"
+    class="btn btn-secondary"
+    data-bs-toggle="modal"
+    data-bs-target="#viewPersonModal{{ $person->id }}">
+
+    View
+
+</button>
+
+
+<x-modals.view-modal :person="$person" />
+   <button
+        type="button"
+        class="btn btn-warning"
+        data-bs-toggle="modal"
+        data-bs-target="#editPersonModal{{ $person->id }}">
         Edit
-    </a>
-    <form action="{{ route('personal-information.destroy', $person) }}" method="POST" class="d-inline" onsubmit="return confirm('Are you sure?');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-danger btn-sm rounded-0 rounded-end">
-            Delete
-        </button>
-    </form>
+    </button>
+    <button
+        type="button"
+        class="btn btn-danger"
+        data-bs-toggle="modal"
+        data-bs-target="#deletePersonModal{{ $person->id }}">
+        Delete
+    </button>
 </div>

@@ -103,15 +103,24 @@ class PersonalInformationController extends Controller
     /**
      * Update the specified resource.
      */
-    public function update(Request $request, PersonalInformation $personalInformation)
+   public function update(Request $request, PersonalInformation $personalInformation)
     {
-        // API Version
-        //
-        // $validated = ...
-        // $personalInformation->update($validated);
-        // return response()->json(...);
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'birthday' => 'required|date',
+            'gender' => 'required|string|max:50',
+            'email' => 'required|email|unique:personal_information,email,' . $personalInformation->id,
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string',
+        ]);
 
-        // Blade version mamaya.
+        $personalInformation->update($validated);
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Record updated successfully.');
     }
 
     /**
