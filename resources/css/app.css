@@ -42,3 +42,13 @@
 .deleted-action:hover {
     transform: scale(1.03);
 }
+
+.dashboard-card {
+    transition: 0.25s ease;
+    border-radius: 18px;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 0.8rem 1.8rem rgba(0, 0, 0, 0.15) !important;
+}

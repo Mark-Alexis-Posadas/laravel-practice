@@ -6,7 +6,17 @@
             {{ session('success') }}
         </div>
     @endif
+    <div class="row g-3 mb-4">
 
+        <x-dashboard-card title="Total Persons" :count="$totalPeople" icon="bi-people-fill" color="primary" />
+
+        <x-dashboard-card title="Male" :count="$totalMale" icon="bi-gender-male" color="success" />
+
+        <x-dashboard-card title="Female" :count="$totalFemale" icon="bi-gender-female" color="danger" />
+
+        <x-dashboard-card title="Deleted" :count="$totalDeleted" icon="bi-trash-fill" color="dark" />
+
+    </div>
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2>Personal Information</h2>
 
