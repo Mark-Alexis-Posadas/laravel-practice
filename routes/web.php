@@ -12,3 +12,13 @@ Route::resource(
     'personal-information',
     PersonalInformationController::class
 );
+
+Route::get(
+    '/personal-information-export',
+    [PersonalInformationController::class, 'export']
+)->name('personal-information.export');
+
+Route::post(
+    '/personal-information-import',
+    [PersonalInformationController::class, 'import']
+)->name('personal-information.import');

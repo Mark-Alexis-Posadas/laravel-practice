@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
+use App\Exports\PersonalInformationExport;
+use App\Imports\PersonalInformationImport;
+use Maatwebsite\Excel\Facades\Excel;
+
 
 class PersonalInformationController extends Controller
 {
@@ -212,5 +216,28 @@ class PersonalInformationController extends Controller
         return redirect()
             ->route('personal-information.index')
             ->with('success', 'Record deleted successfully.');
+    }
+
+    public function export()
+    {
+        return Excel::download(
+            new PersonalInformationExport(),
+            'personal-information.xlsx'
+        );
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+        Excel::import(
+            new PersonalInformationImport(),
+            $request->file('file')
+        );
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Excel imported successfully.');
     }
 }

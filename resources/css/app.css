@@ -9,3 +9,19 @@
         "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
         "Noto Color Emoji";
 }
+
+#dropZone {
+    cursor: pointer;
+
+    transition: 0.25s;
+
+    border: 2px dashed #198754;
+}
+
+#dropZone:hover {
+    background: #f8f9fa;
+}
+
+#dropZone.bg-light {
+    transform: scale(1.02);
+}

@@ -22,16 +22,20 @@
 
             <form method="GET">
 
-                <div class="row g-2">
+                <div class="row g-2 align-items-end">
 
-                    <div class="col-md-4">
+                    <div class="col-md-3">
+
+                        <label class="form-label">Search</label>
 
                         <input type="text" name="search" class="form-control" placeholder="Search name, email..."
                             value="{{ request('search') }}">
 
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+
+                        <label class="form-label">Gender</label>
 
                         <select name="gender" class="form-select">
 
@@ -50,12 +54,14 @@
                     </div>
 
                     <div class="col-md-3">
+
+                        <label class="form-label">Sort By</label>
+
                         <select name="sort" class="form-select">
 
                             <option value="">Newest</option>
 
                             <optgroup label="ID">
-
                                 <option value="id_asc" {{ request('sort') == 'id_asc' ? 'selected' : '' }}>
                                     ID (Lowest → Highest)
                                 </option>
@@ -63,11 +69,9 @@
                                 <option value="id_desc" {{ request('sort') == 'id_desc' ? 'selected' : '' }}>
                                     ID (Highest → Lowest)
                                 </option>
-
                             </optgroup>
 
                             <optgroup label="Name">
-
                                 <option value="first_name_asc" {{ request('sort') == 'first_name_asc' ? 'selected' : '' }}>
                                     First Name (A-Z)
                                 </option>
@@ -76,11 +80,9 @@
                                     {{ request('sort') == 'first_name_desc' ? 'selected' : '' }}>
                                     First Name (Z-A)
                                 </option>
-
                             </optgroup>
 
                             <optgroup label="Birthday">
-
                                 <option value="birthday_asc" {{ request('sort') == 'birthday_asc' ? 'selected' : '' }}>
                                     Birthday (Oldest)
                                 </option>
@@ -88,18 +90,40 @@
                                 <option value="birthday_desc" {{ request('sort') == 'birthday_desc' ? 'selected' : '' }}>
                                     Birthday (Newest)
                                 </option>
-
                             </optgroup>
 
                         </select>
 
                     </div>
 
-                    <div class="col-md-2 d-grid">
+                    <div class="col-md-1 d-grid">
 
                         <button class="btn btn-primary">
                             Search
                         </button>
+
+                    </div>
+
+                    <div class="col-md-3">
+
+                        <div class="d-flex justify-content-end gap-2">
+
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#importExcelModal">
+
+                                <i class="bi bi-upload me-1"></i>
+                                Import
+
+                            </button>
+
+                            <a href="{{ route('personal-information.export') }}" class="btn btn-outline-success">
+
+                                <i class="bi bi-download me-1"></i>
+                                Export
+
+                            </a>
+
+                        </div>
 
                     </div>
 
@@ -110,7 +134,6 @@
         </div>
 
     </div>
-
     {{-- Dynamic Table Component --}}
     <x-table :headers="[
         'ID',
@@ -141,4 +164,5 @@
     @include('components.modals.edit-modal')
     @include('components.modals.view-modal')
     @include('components.modals.delete-modal')
+    @include('components.modals.import-excel-modal')
 @endsection
