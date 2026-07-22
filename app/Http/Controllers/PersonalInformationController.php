@@ -31,6 +31,13 @@ class PersonalInformationController extends Controller
         // ===========================
         // BLADE VERSION
         // ===========================
+        $totalPeople = PersonalInformation::count();
+
+        $totalMale = PersonalInformation::where('gender', 'Male')->count();
+
+        $totalFemale = PersonalInformation::where('gender', 'Female')->count();
+
+        $totalDeleted = PersonalInformation::onlyTrashed()->count();
 
         $query = PersonalInformation::query();
 
@@ -105,16 +112,13 @@ class PersonalInformationController extends Controller
             'personal-information.index',
             compact(
                 'personalInformations',
-                'deletedPeople'
+                'deletedPeople',
+                'totalPeople',
+                'totalMale',
+                'totalFemale',
+                'totalDeleted'
             )
         );
-
-        // $personalInformations = PersonalInformation::latest()->paginate(2);
-
-        // return view(
-        //     'personal-information.index',
-        //     compact('personalInformations')
-        // );
     }
 
     /**
