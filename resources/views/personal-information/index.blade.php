@@ -122,7 +122,20 @@
                                 Export
 
                             </a>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                data-bs-target="#trashModal">
 
+                                <i class="bi bi-trash3"></i>
+
+                                Trash
+
+                                @if ($deletedPeople->count())
+                                    <span class="badge bg-danger">
+                                        {{ $deletedPeople->count() }}
+                                    </span>
+                                @endif
+
+                            </button>
                         </div>
 
                     </div>
@@ -165,4 +178,5 @@
     @include('components.modals.view-modal')
     @include('components.modals.delete-modal')
     @include('components.modals.import-excel-modal')
+    @include('components.modals.trash-modal')
 @endsection
