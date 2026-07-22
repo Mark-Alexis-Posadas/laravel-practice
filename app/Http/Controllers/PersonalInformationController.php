@@ -97,9 +97,16 @@ class PersonalInformationController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        $deletedPeople = PersonalInformation::onlyTrashed()
+            ->latest()
+            ->get();
+
         return view(
             'personal-information.index',
-            compact('personalInformations')
+            compact(
+                'personalInformations',
+                'deletedPeople'
+            )
         );
 
         // $personalInformations = PersonalInformation::latest()->paginate(2);
@@ -239,5 +246,27 @@ class PersonalInformationController extends Controller
         return redirect()
             ->route('personal-information.index')
             ->with('success', 'Excel imported successfully.');
+    }
+
+    public function restore($id)
+    {
+        PersonalInformation::onlyTrashed()
+            ->findOrFail($id)
+            ->restore();
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Person restored successfully.');
+    }
+
+    public function forceDelete($id)
+    {
+        PersonalInformation::onlyTrashed()
+            ->findOrFail($id)
+            ->forceDelete();
+
+        return redirect()
+            ->route('personal-information.index')
+            ->with('success', 'Person permanently deleted.');
     }
 }
