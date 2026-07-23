@@ -15,12 +15,16 @@
 </head>
 
 <body>
-    <main class="p-5">
-        <x-loading-spinner />
-        <div class="container">
-            @yield('content')
-        </div>
-    </main>
+        <x-sidebar />
+        <x-navbar />
+        <main class="main-content">
+            <x-loading-spinner />
+
+            <div class="container-fluid">
+                @yield('content')
+            </div>
+        </main>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
     @if ($errors->any())
 <script>
