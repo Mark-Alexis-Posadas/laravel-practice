@@ -10,15 +10,20 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 
 <body>
-    <x-loading-spinner />
-    <div class="container mt-5">
-        @yield('content')
-    </div>
-
+    <main class="p-5">
+        <x-loading-spinner />
+        <div class="container">
+            @yield('content')
+        </div>
+    </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/parsleyjs"></script>
     <script>
         document.addEventListener('hidden.bs.modal', function(event) {
             document.activeElement.blur();
@@ -29,6 +34,9 @@
     <script src="{{ asset('js/view.js') }}"></script>
     <script src="{{ asset('js/edit.js') }}"></script>
     <script src="{{ asset('js/delete.js') }}"></script>
+    <script>
+        $('#personForm').parsley();
+    </script>
 </body>
 
 </html>
