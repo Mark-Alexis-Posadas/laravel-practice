@@ -3,19 +3,22 @@
 <div class="{{ $col }}">
     <div class="form-floating">
 
-        <input type="{{ $type }}" name="{{ $name }}" value="{{ old($name, $value) }}"
-            placeholder="{{ $label }}"
-            {{ $attributes->merge([
-                'class' => 'form-control' . ($errors->has($name) ? ' is-invalid' : ''),
-            ]) }}>
+        <input type="{{ $type }}" name="{{ $name }}" id="{{ $name }}"
+            value="{{ old($name, $value) }}" placeholder="{{ $label }}" @class([
+                'form-control',
+                'is-invalid' => isset($errors) && $errors->has($name),
+            ])
+            {{ $attributes }}>
 
         <label for="{{ $name }}">{{ $label }}</label>
 
-        @error($name)
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
+        @if (isset($errors))
+            @error($name)
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        @endif
 
     </div>
 </div>

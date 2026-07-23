@@ -175,19 +175,30 @@
 
         async function loadData(url = null) {
 
-            const params = new URLSearchParams(new FormData(form));
+            const spinner = document.getElementById('loadingSpinner');
+            spinner.classList.remove('d-none');
 
-            let requestUrl = url ?? `?${params.toString()}`;
+            try {
 
-            const response = await fetch(requestUrl, {
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest'
-                }
-            });
+                const params = new URLSearchParams(new FormData(form));
 
-            const html = await response.text();
+                const requestUrl = url ?? `?${params.toString()}`;
 
-            document.getElementById('table-container').innerHTML = html;
+                const response = await fetch(requestUrl, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                const html = await response.text();
+
+                document.getElementById('table-container').innerHTML = html;
+
+            } finally {
+
+                spinner.classList.add('d-none');
+
+            }
 
         }
 

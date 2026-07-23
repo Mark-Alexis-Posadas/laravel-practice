@@ -1,6 +1,4 @@
-<div class="modal fade"
-    id="editPersonModal{{ $person->id }}"
-    tabindex="-1">
+<div class="modal fade" id="editPersonModal{{ $person->id }}" tabindex="-1">
 
     <div class="modal-dialog modal-lg modal-dialog-centered">
 
@@ -12,16 +10,12 @@
                     Edit Personal Information
                 </h5>
 
-                <button
-                    class="btn-close"
-                    data-bs-dismiss="modal">
+                <button class="btn-close" data-bs-dismiss="modal">
                 </button>
 
             </div>
 
-            <form
-                action="{{ route('personal-information.update', $person) }}"
-                method="POST">
+            <form action="{{ route('personal-information.update', $person) }}" method="POST">
 
                 @csrf
                 @method('PUT')
@@ -30,120 +24,27 @@
 
                     <div class="row g-3">
 
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    name="first_name"
-                                    class="form-control"
-                                    value="{{ old('first_name', $person->first_name) }}"
-                                    required>
+                        <x-form.input col="col-md-4" name="first_name" label="First Name" :value="$person->first_name" required />
 
-                                <label>First Name</label>
-                            </div>
-                        </div>
+                        <x-form.input col="col-md-4" name="middle_name" label="Middle Name" :value="$person->middle_name" />
 
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    name="middle_name"
-                                    class="form-control"
-                                    value="{{ old('middle_name', $person->middle_name) }}">
+                        <x-form.input col="col-md-4" name="last_name" label="Last Name" :value="$person->last_name" required />
 
-                                <label>Middle Name</label>
-                            </div>
-                        </div>
+                        <x-form.input col="col-md-6" type="date" name="birthday" label="Birthday" :value="$person->birthday"
+                            required />
 
-                        <div class="col-md-4">
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    name="last_name"
-                                    class="form-control"
-                                    value="{{ old('last_name', $person->last_name) }}"
-                                    required>
+                        <x-form.select col="col-md-6" name="gender" label="Gender" :value="$person->gender" :options="[
+                            'Male' => 'Male',
+                            'Female' => 'Female',
+                        ]"
+                            required />
 
-                                <label>Last Name</label>
-                            </div>
-                        </div>
+                        <x-form.input col="col-md-6" type="email" name="email" label="Email" :value="$person->email"
+                            required />
 
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input
-                                    type="date"
-                                    name="birthday"
-                                    class="form-control"
-                                    value="{{ old('birthday', $person->birthday) }}"
-                                    required>
+                        <x-form.input col="col-md-6" name="phone" label="Phone" :value="$person->phone" required />
 
-                                <label>Birthday</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-
-                                <select
-                                    name="gender"
-                                    class="form-select">
-
-                                    <option
-                                        value="Male"
-                                        @selected($person->gender == 'Male')>
-                                        Male
-                                    </option>
-
-                                    <option
-                                        value="Female"
-                                        @selected($person->gender == 'Female')>
-                                        Female
-                                    </option>
-
-                                </select>
-
-                                <label>Gender</label>
-
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input
-                                    type="email"
-                                    name="email"
-                                    class="form-control"
-                                    value="{{ old('email', $person->email) }}"
-                                    required>
-
-                                <label>Email</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    class="form-control"
-                                    value="{{ old('phone', $person->phone) }}"
-                                    required>
-
-                                <label>Phone</label>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="form-floating">
-                                <textarea
-                                    class="form-control"
-                                    style="height:120px"
-                                    name="address"
-                                    required>{{ old('address', $person->address) }}</textarea>
-
-                                <label>Address</label>
-                            </div>
-                        </div>
+                        <x-form.textarea name="address" label="Address" :value="$person->address" required />
 
                     </div>
 
@@ -151,21 +52,13 @@
 
                 <div class="modal-footer">
 
-                    <button
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                        type="button">
-
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                         Cancel
-
                     </button>
 
-                    <button
-                        class="btn btn-warning"
-                        type="submit">
-
-                        Update
-
+                    <button type="submit" class="btn btn-warning">
+                        <i class="bi bi-check-circle-fill me-1"></i>
+                        Update Person
                     </button>
 
                 </div>

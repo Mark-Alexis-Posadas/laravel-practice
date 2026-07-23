@@ -1,11 +1,10 @@
 @props(['person'])
 
-<tr id="person-{{ $person->id }}"
-    class="{{ session('updated_id') == $person->id ? 'table-success' : '' }}">
+<tr id="person-{{ $person->id }}" class="{{ session('updated_id') == $person->id ? 'table-success' : '' }}">
     <td>{{ $person->id }}</td>
-    <td>{{ $person->first_name }}</td>
-    <td>{{ $person->middle_name }}</td>
-    <td>{{ $person->last_name }}</td>
+    <td class="text-capitalize">{{ $person->first_name }}</td>
+    <td class="text-capitalize">{{ $person->middle_name }}</td>
+    <td class="text-capitalize">{{ $person->last_name }}</td>
     <td>{{ $person->birthday }}</td>
     <td>{{ $person->gender }}</td>
     <td>{{ $person->email }}</td>

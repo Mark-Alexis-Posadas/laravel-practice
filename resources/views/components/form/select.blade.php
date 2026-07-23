@@ -1,11 +1,15 @@
 @props(['name', 'label', 'options' => [], 'value' => null, 'col' => 'col-md-6'])
 
+@php
+    $hasError = isset($errors) && $errors->has($name);
+@endphp
+
 <div class="{{ $col }}">
     <div class="form-floating">
 
-        <select name="{{ $name }}"
+        <select id="{{ $name }}" name="{{ $name }}"
             {{ $attributes->merge([
-                'class' => 'form-select' . ($errors->has($name) ? ' is-invalid' : ''),
+                'class' => 'form-select' . ($hasError ? ' is-invalid' : ''),
             ]) }}>
 
             <option value="">Select</option>
@@ -18,13 +22,13 @@
 
         </select>
 
-        <label>{{ $label }}</label>
+        <label for="{{ $name }}">{{ $label }}</label>
 
-        @error($name)
+        @if ($hasError)
             <div class="invalid-feedback">
-                {{ $message }}
+                {{ $errors->first($name) }}
             </div>
-        @enderror
+        @endif
 
     </div>
 </div>

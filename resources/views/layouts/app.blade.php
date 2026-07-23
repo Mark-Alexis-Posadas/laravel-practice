@@ -26,14 +26,15 @@
         </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    @if ($errors->any())
+@if (isset($errors) && $errors->any())
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const modal = new bootstrap.Modal(
-            document.getElementById('createPersonModal')
-        );
+        const modalElement = document.getElementById('createPersonModal');
 
-        modal.show();
+        if (modalElement) {
+            const modal = new bootstrap.Modal(modalElement);
+            modal.show();
+        }
     });
 </script> @endif
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
@@ -51,6 +52,9 @@
     <script>
         $('#personForm').parsley();
     </script>
+
+
+@stack('scripts')
 </body>
 
 </html>
