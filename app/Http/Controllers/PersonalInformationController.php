@@ -15,7 +15,7 @@ class PersonalInformationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $totalPeople = PersonalInformation::count();
 
@@ -90,6 +90,13 @@ class PersonalInformationController extends Controller
         $deletedPeople = PersonalInformation::onlyTrashed()
             ->latest()
             ->get();
+
+        if ($request->ajax()) {
+            return view(
+                'personal-information.partials.table',
+                compact('personalInformations')
+            );
+        }
 
         return view(
             'personal-information.index',

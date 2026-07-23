@@ -30,7 +30,7 @@
 
         <div class="card-body">
 
-            <form method="GET">
+            <form id="filterForm">
 
                 <div class="row g-2 align-items-end">
 
@@ -157,36 +157,58 @@
         </div>
 
     </div>
-    {{-- Dynamic Table Component --}}
-    <x-table :headers="[
-        'ID',
-        'First Name',
-        'Middle Name',
-        'Last Name',
-        'Birthday',
-        'Gender',
-        'Email',
-        'Phone',
-        'Address',
-        'Action',
-    ]">
-        @forelse($personalInformations as $person)
-            <x-person-row :person="$person" />
-        @empty
-            <tr>
-                <td colspan="10" class="text-center py-4 text-muted">
-                    No records found.
-                </td>
-            </tr>
-        @endforelse
-    </x-table>
 
-    {{-- Pagination Component --}}
-    <x-pagination :paginator="$personalInformations" />
+
+    <div id="table-container">
+        @include('personal-information.partials.table')
+    </div>
+
+
     @include('components.modals.create-modal')
-    @include('components.modals.edit-modal')
-    @include('components.modals.view-modal')
-    @include('components.modals.delete-modal')
     @include('components.modals.import-excel-modal')
     @include('components.modals.trash-modal')
 @endsection
+
+@push('scripts')
+    <script>
+        const form = document.getElementById('filterForm');
+
+        async function loadData(url = null) {
+
+            const params = new URLSearchParams(new FormData(form));
+
+            let requestUrl = url ?? `?${params.toString()}`;
+
+            const response = await fetch(requestUrl, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            const html = await response.text();
+
+            document.getElementById('table-container').innerHTML = html;
+
+        }
+
+        form.addEventListener('submit', function(e) {
+
+            e.preventDefault();
+
+            loadData();
+
+        });
+
+        document.addEventListener('click', function(e) {
+
+            if (e.target.closest('.pagination a')) {
+
+                e.preventDefault();
+
+                loadData(e.target.closest('a').href);
+
+            }
+
+        });
+    </script>
+@endpush

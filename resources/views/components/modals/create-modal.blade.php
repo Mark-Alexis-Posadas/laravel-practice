@@ -23,173 +23,31 @@
 
                     <div class="row g-3">
 
-                        <div class="col-md-4">
+                        <x-form.input col="col-md-4" name="first_name" label="First Name" required
+                            data-parsley-required-message="First name is required." data-parsley-minlength="2"
+                            data-parsley-minlength-message="Minimum of 2 characters." data-parsley-maxlength="50" />
+                        <x-form.input col="col-md-4" name="middle_name" label="Middle Name" />
 
-                            <div class="form-floating">
+                        <x-form.input col="col-md-4" name="last_name" label="Last Name" required
+                            data-parsley-required-message="Last name is required." data-parsley-minlength="2" />
 
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
-                                    name="first_name" value="{{ old('first_name') }}" required
-                                    data-parsley-required-message="First name is required." data-parsley-minlength="2"
-                                    data-parsley-minlength-message="Minimum of 2 characters."
-                                    data-parsley-maxlength="50">
-                                @error('first_name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
+                        <x-form.input col="col-md-6" type="date" name="birthday" label="Birthday" required
+                            data-parsley-required-message="Birthday is required." />
 
-                                <label>First Name</label>
+                        <x-form.select col="col-md-6" name="gender" label="Gender" :options="[
+                            'Male' => 'Male',
+                            'Female' => 'Female',
+                        ]" required />
 
-                            </div>
+                        <x-form.input col="col-md-6" type="email" name="email" label="Email" required
+                            data-parsley-type="email" data-parsley-type-message="Please enter a valid email address." />
 
-                        </div>
+                        <x-form.input col="col-md-6" name="phone" label="Phone" required
+                            data-parsley-pattern="^09\d{9}$"
+                            data-parsley-pattern-message="Enter a valid Philippine mobile number." />
 
-                        <div class="col-md-4">
-
-                            <div class="form-floating">
-
-                                <input type="text" class="form-control @error('middle_name') is-invalid @enderror"
-                                    name="middle_name" value="{{ old('middle_name') }}" placeholder="Middle Name">
-
-                                @error('middle_name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label>Middle Name</label>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="form-floating">
-
-                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
-                                    name="last_name" value="{{ old('last_name') }}" required
-                                    data-parsley-required-message="Last name is required." data-parsley-minlength="2"
-                                    data-parsley-minlength-message="Minimum of 2 characters.">
-
-                                @error('last_name')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label>Last Name</label>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="form-floating">
-
-                                <input type="date" class="form-control @error('birthday') is-invalid @enderror"
-                                    name="birthday" value="{{ old('birthday') }}" required
-                                    data-parsley-required-message="Birthday is required.">
-
-                                @error('birthday')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label>Birthday</label>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="form-floating">
-                                <select class="form-select @error('gender') is-invalid @enderror" name="gender"
-                                    required>
-
-                                    <option value="">Select</option>
-
-                                    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>
-                                        Male
-                                    </option>
-
-                                    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>
-                                        Female
-                                    </option>
-
-                                </select>
-
-                                @error('gender')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label>Gender</label>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="form-floating">
-                                <input type="email" class="form-control @error('email') is-invalid @enderror"
-                                    name="email" value="{{ old('email') }}" required data-parsley-type="email"
-                                    data-parsley-type-message="Please enter a valid email address."
-                                    data-parsley-required-message="Email is required.">
-                                @error('email')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                <label>Email</label>
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-floating">
-
-                                <input type="text" class="form-control @error('phone') is-invalid @enderror"
-                                    name="phone" value="{{ old('phone') }}" required
-                                    data-parsley-pattern="^09\d{9}$"
-                                    data-parsley-pattern-message="Enter a valid Philippine mobile number.">
-
-                                @error('phone')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-
-                                <label>Phone</label>
-
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-
-                            <div class="form-floating">
-
-                                <textarea class="form-control @error('address') is-invalid @enderror" name="address" required
-                                    data-parsley-minlength="10" data-parsley-minlength-message="Address should be at least 10 characters.">{{ old('address') }}</textarea>
-
-                                @error('address')
-                                    <div class="invalid-feedback">
-                                        {{ $message }}
-                                    </div>
-                                @enderror
-                                <label>Address</label>
-
-                            </div>
-
-                        </div>
-
+                        <x-form.textarea name="address" label="Address" required data-parsley-minlength="10"
+                            data-parsley-minlength-message="Address should be at least 10 characters." />
                     </div>
 
                 </div>
