@@ -84,7 +84,7 @@ class PersonalInformationController extends Controller
         }
 
         $personalInformations = $query
-            ->paginate(3)
+            ->paginate(10)
             ->withQueryString();
 
         $deletedPeople = PersonalInformation::onlyTrashed()

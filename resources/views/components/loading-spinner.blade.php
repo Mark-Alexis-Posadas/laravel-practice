@@ -7,9 +7,6 @@
         <div class="spinner-border text-primary" style="width:3rem;height:3rem;" role="status">
         </div>
 
-        <div class="mt-3 fw-semibold text-dark">
-            Loading...
-        </div>
 
     </div>
 
