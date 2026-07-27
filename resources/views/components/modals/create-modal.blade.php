@@ -4,14 +4,14 @@
 
         <div class="modal-content shadow-lg border-0 rounded-4">
 
-            <div class="modal-header bg-secondarytext-white">
+            <div class="modal-header bg-secondary text-white">
 
                 <h4 class="modal-title">
                     <i class="bi bi-person-plus-fill me-2"></i>
                     Add Personal Information
                 </h4>
 
-                <button class="btn-close btn-close-white" data-bs-dismiss="modal">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal">
                 </button>
 
             </div>
