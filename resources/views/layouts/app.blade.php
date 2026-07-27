@@ -15,8 +15,8 @@
 </head>
 
 <body>
-        <x-sidebar />
-        <x-navbar />
+        {{-- <x-sidebar />
+        <x-navbar /> --}}
         <main class="main-content">
             <x-loading-spinner />
 

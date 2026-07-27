@@ -86,6 +86,5 @@
 
 /* Main Content */
 .main-content {
-    margin-left: 250px; /* kapareho ng sidebar width */
     padding: 90px 50px; /* navbar height + allowance */
 }
