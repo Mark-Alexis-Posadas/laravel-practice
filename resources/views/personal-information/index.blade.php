@@ -72,24 +72,14 @@
                     </div>
 
                     <div class="col-md-3">
-                        <div class="d-flex justify-content-end gap-2">
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#importExcelModal">
-                                <i class="bi bi-upload me-1"></i> Import
-                            </button>
-                            <a href="{{ route('personal-information.export') }}" class="btn btn-outline-success">
-                                <i class="bi bi-download me-1"></i> Export
-                            </a>
-                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                                data-bs-target="#trashModal">
-                                <i class="bi bi-trash3"></i> Trash
-                                @if ($deletedPeople->count())
-                                    <span class="badge bg-danger">{{ $deletedPeople->count() }}</span>
-                                @endif
-                            </button>
-                        </div>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                            data-bs-target="#trashModal">
+                            <i class="bi bi-trash3"></i> Trash
+                            @if ($deletedPeople->count())
+                                <span class="badge bg-danger">{{ $deletedPeople->count() }}</span>
+                            @endif
+                        </button>
                     </div>
-
                 </div>
             </form>
         </div>
@@ -109,21 +99,21 @@
             'Address',
             'Action',
         ]">
-       @forelse($personalInformations as $person)
-            <x-person-row :person="$person" />
+            @forelse($personalInformations as $person)
+                <x-person-row :person="$person" />
 
-        @empty
-            <tr>
-                <td colspan="10" class="text-center py-4 text-muted">
-                    No records found.
-                </td>
-            </tr>
-        @endforelse
+            @empty
+                <tr>
+                    <td colspan="10" class="text-center py-4 text-muted">
+                        No records found.
+                    </td>
+                </tr>
+            @endforelse
         </x-table>
 
         <x-pagination :paginator="$personalInformations" />
     </div>
-    @foreach($personalInformations as $person)
+    @foreach ($personalInformations as $person)
         @include('components.modals.edit-modal', ['person' => $person])
         @include('components.modals.view-modal', ['person' => $person])
         @include('components.modals.delete-modal', ['person' => $person])
