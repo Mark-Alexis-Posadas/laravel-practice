@@ -109,22 +109,26 @@
             'Address',
             'Action',
         ]">
-            @forelse($personalInformations as $person)
-                <x-person-row :person="$person" />
-            @empty
-                <tr>
-                    <td colspan="10" class="text-center py-4 text-muted">No records found.</td>
-                </tr>
-            @endforelse
+       @forelse($personalInformations as $person)
+            <x-person-row :person="$person" />
+
+        @empty
+            <tr>
+                <td colspan="10" class="text-center py-4 text-muted">
+                    No records found.
+                </td>
+            </tr>
+        @endforelse
         </x-table>
 
         <x-pagination :paginator="$personalInformations" />
     </div>
-
+    @foreach($personalInformations as $person)
+        @include('components.modals.edit-modal', ['person' => $person])
+        @include('components.modals.view-modal', ['person' => $person])
+        @include('components.modals.delete-modal', ['person' => $person])
+    @endforeach
     @include('components.modals.create-modal')
-    @include('components.modals.edit-modal')
-    @include('components.modals.view-modal')
-    @include('components.modals.delete-modal')
     @include('components.modals.import-excel-modal')
     @include('components.modals.trash-modal')
 @endsection

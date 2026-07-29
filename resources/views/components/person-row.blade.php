@@ -15,5 +15,3 @@
         <x-action-buttons :person="$person" />
     </td>
 </tr>
-
-@include('components.modals.edit-modal', ['person' => $person])
