@@ -17,7 +17,7 @@ Route::middleware('throttle:60,1')->group(function () {
 // ===============================
 // EXPORT (5 per minute)
 // ===============================
-Route::post(
+Route::get(
     '/personal-information-export',
     [PersonalInformationController::class, 'export']
 )->middleware('throttle:5,1')

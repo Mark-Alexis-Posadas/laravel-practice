@@ -68,18 +68,30 @@
                     </div>
 
                     <div class="col-md-1 d-grid">
-                        <button type="submit" class="btn btn-primary">Search</button>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a href="{{ route('personal-information.index') }}" class="btn btn-secondary">
+                                <i class="bi bi-arrow-clockwise"></i> Clear
+                            </a>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#importExcelModal">
+                                <i class="bi bi-upload"></i> Import
+                            </button>
+
+                            <a href="{{ route('personal-information.export') }}" class="btn btn-info text-white">
+                                <i class="bi bi-download"></i> Export
+                            </a>
+                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                                data-bs-target="#trashModal">
+                                <i class="bi bi-trash3"></i> Trash
+                                @if ($deletedPeople->count())
+                                    <span class="badge bg-danger">{{ $deletedPeople->count() }}</span>
+                                @endif
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="col-md-3">
-                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                            data-bs-target="#trashModal">
-                            <i class="bi bi-trash3"></i> Trash
-                            @if ($deletedPeople->count())
-                                <span class="badge bg-danger">{{ $deletedPeople->count() }}</span>
-                            @endif
-                        </button>
-                    </div>
+
                 </div>
             </form>
         </div>

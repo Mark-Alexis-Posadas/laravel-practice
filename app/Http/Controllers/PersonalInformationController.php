@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
-use App\Exports\PersonalInformationExport;
 use App\Imports\PersonalInformationImport;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use App\Http\Requests\StorePersonalInformationRequest;
 use App\Http\Requests\UpdatePersonalInformationRequest;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class PersonalInformationController extends Controller
 {
@@ -155,9 +156,63 @@ class PersonalInformationController extends Controller
 
     public function export()
     {
-        return Excel::download(
-            new PersonalInformationExport(),
-            'personal-information.xlsx'
+        $people = PersonalInformation::orderBy('id')->get();
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Headers
+        $headers = [
+            'ID',
+            'First Name',
+            'Middle Name',
+            'Last Name',
+            'Birthday',
+            'Gender',
+            'Email',
+            'Phone',
+            'Address',
+        ];
+
+        $column = 'A';
+
+        foreach ($headers as $header) {
+            $sheet->setCellValue($column . '1', $header);
+            $column++;
+        }
+
+        $row = 2;
+
+        foreach ($people as $person) {
+
+            $sheet->setCellValue("A{$row}", $person->id);
+            $sheet->setCellValue("B{$row}", $person->first_name);
+            $sheet->setCellValue("C{$row}", $person->middle_name);
+            $sheet->setCellValue("D{$row}", $person->last_name);
+            $sheet->setCellValue("E{$row}", $person->birthday);
+            $sheet->setCellValue("F{$row}", $person->gender);
+            $sheet->setCellValue("G{$row}", $person->email);
+            $sheet->setCellValue("H{$row}", $person->phone);
+            $sheet->setCellValue("I{$row}", $person->address);
+
+            $row++;
+        }
+
+        // Auto-size columns
+        foreach (range('A', 'I') as $column) {
+            $sheet->getColumnDimension($column)->setAutoSize(true);
+        }
+
+        $writer = new Xlsx($spreadsheet);
+
+        return response()->streamDownload(
+            function () use ($writer) {
+                $writer->save('php://output');
+            },
+            'personal-information.xlsx',
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]
         );
     }
 
