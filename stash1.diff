@@ -1,0 +1,162 @@
+diff --git a/app/Http/Controllers/PersonalInformationController.php b/app/Http/Controllers/PersonalInformationController.php
+index 0388237..1497235 100644
+--- a/app/Http/Controllers/PersonalInformationController.php
++++ b/app/Http/Controllers/PersonalInformationController.php
+@@ -12,13 +12,28 @@ class PersonalInformationController extends Controller
+      */
+     public function index()
+     {
++        // ===========================
++        // API VERSION
++        // ===========================
++        //
++        // $personalInformations = PersonalInformation::latest()->get();
++        //
++        // return response()->json([
++        //     'success' => true,
++        //     'message' => 'Personal information retrieved successfully.',
++        //     'data' => $personalInformations,
++        // ], 200);
++
++        // ===========================
++        // BLADE VERSION
++        // ===========================
++
+         $personalInformations = PersonalInformation::latest()->get();
+ 
+-        return response()->json([
+-            'success' => true,
+-            'message' => 'Personal information retrieved successfully.',
+-            'data' => $personalInformations,
+-        ], 200);
++        return view(
++            'personal-information.index',
++            compact('personalInformations')
++        );
+     }
+ 
+     /**
+@@ -26,24 +41,30 @@ public function index()
+      */
+     public function store(Request $request)
+     {
+-        $validated = $request->validate([
+-            'first_name' => 'required|string|max:255',
+-            'middle_name' => 'nullable|string|max:255',
+-            'last_name' => 'required|string|max:255',
+-            'birthday' => 'required|date',
+-            'gender' => 'required|string|max:50',
+-            'email' => 'required|email|unique:personal_information,email',
+-            'phone' => 'required|string|max:20',
+-            'address' => 'required|string',
+-        ]);
+-
+-        $personalInformation = PersonalInformation::create($validated);
++        // ===========================
++        // API VERSION
++        // ===========================
++        //
++        // $validated = $request->validate([
++        //     'first_name' => 'required|string|max:255',
++        //     'middle_name' => 'nullable|string|max:255',
++        //     'last_name' => 'required|string|max:255',
++        //     'birthday' => 'required|date',
++        //     'gender' => 'required|string|max:50',
++        //     'email' => 'required|email|unique:personal_information,email',
++        //     'phone' => 'required|string|max:20',
++        //     'address' => 'required|string',
++        // ]);
++        //
++        // $personalInformation = PersonalInformation::create($validated);
++        //
++        // return response()->json([
++        //     'success' => true,
++        //     'message' => 'Personal information created successfully.',
++        //     'data' => $personalInformation,
++        // ], 201);
+ 
+-        return response()->json([
+-            'success' => true,
+-            'message' => 'Personal information created successfully.',
+-            'data' => $personalInformation,
+-        ], 201);
++        // Blade version mamaya natin gagawin.
+     }
+ 
+     /**
+@@ -51,48 +72,45 @@ public function store(Request $request)
+      */
+     public function show(PersonalInformation $personalInformation)
+     {
+-        return response()->json([
+-            'success' => true,
+-            'message' => 'Personal information retrieved successfully.',
+-            'data' => $personalInformation,
+-        ], 200);
++        // API Version
++        //
++        // return response()->json([
++        //     'success' => true,
++        //     'message' => 'Personal information retrieved successfully.',
++        //     'data' => $personalInformation,
++        // ]);
++
++        // Blade version mamaya.
+     }
+ 
+     /**
+-     * Update the specified resource in storage.
++     * Update the specified resource.
+      */
+     public function update(Request $request, PersonalInformation $personalInformation)
+     {
+-        $validated = $request->validate([
+-            'first_name' => 'required|string|max:255',
+-            'middle_name' => 'nullable|string|max:255',
+-            'last_name' => 'required|string|max:255',
+-            'birthday' => 'required|date',
+-            'gender' => 'required|string|max:50',
+-            'email' => 'required|email|unique:personal_information,email,' . $personalInformation->id,
+-            'phone' => 'required|string|max:20',
+-            'address' => 'required|string',
+-        ]);
+-
+-        $personalInformation->update($validated);
++        // API Version
++        //
++        // $validated = ...
++        // $personalInformation->update($validated);
++        // return response()->json(...);
+ 
+-        return response()->json([
+-            'success' => true,
+-            'message' => 'Personal information updated successfully.',
+-            'data' => $personalInformation,
+-        ], 200);
++        // Blade version mamaya.
+     }
+ 
+     /**
+-     * Remove the specified resource from storage.
++     * Remove the specified resource.
+      */
+     public function destroy(PersonalInformation $personalInformation)
+     {
+-        $personalInformation->delete();
++        // API Version
++        //
++        // $personalInformation->delete();
++        //
++        // return response()->json([
++        //     'success' => true,
++        //     'message' => 'Deleted successfully.',
++        // ]);
+ 
+-        return response()->json([
+-            'success' => true,
+-            'message' => 'Personal information deleted successfully.',
+-        ], 200);
++        // Blade version mamaya.
+     }
+ }
+\ No newline at end of file
