@@ -2,6 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PersonalInformationController;
+use App\Http\Controllers\PageController;
+
+// ===============================
+// PAGE ROUTES
+// ===============================
+Route::get('/dashboard', [PageController::class, 'dashboard'])->name('dashboard');
+Route::get('/students', [PageController::class, 'students'])->name('students');
+Route::get('/courses', [PageController::class, 'courses'])->name('courses');
+Route::get('/subjects', [PageController::class, 'subjects'])->name('subjects');
+Route::get('/instructors', [PageController::class, 'instructors'])->name('instructors');
+Route::get('/enrollments', [PageController::class, 'enrollments'])->name('enrollments');
+Route::get('/reports', [PageController::class, 'reports'])->name('reports');
 
 // ===============================
 // MAIN CRUD (index, create, store, show, edit, update, destroy)
